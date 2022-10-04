@@ -1,25 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-    @font-face {
-        font-family: 'Madreu';
-        src: url('../fonts/Madreu.otf');
-        font-weight: 500;
-        font-display: swap;
-    }
-
-    @font-face {
-        font-family: 'Segoe UI';
-        src: url('../fonts/Segoe UI.ttf');
-        font-weight: 500;
-        font-display: swap;
-    }
-
     :root {
         --color-text: hsl(222deg, 22%, 5%);
         --color-background: hsl(0deg, 0%, 100%);
         --color-blurred-background: hsla(0deg, 0%, 100%, 0.85);
-        --color-primary: hsl(245deg, 100%, 60%);
+        --color-primary: hsl(322deg, 100%, 54%);
         --color-info: hsl(245deg, 100%, 60%);
         --color-success: hsl(160deg, 100%, 40%);
         --color-success-background: hsla(160deg, 100%, 40%, 0.1);
@@ -40,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
         --font-weight-bold: 600;
         --font-weight-medium: 500;
         --font-weight-light: 400;
-        --font-headings: "Madreu",-apple-system,sans-serif;
-        --font-contents: "Segoe UI",-apple-system,sans-serif;
+        --font-headings: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
+        --font-contents: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
     }
     *, *::before, *::after {
     box-sizing: border-box;
@@ -73,6 +59,18 @@ const GlobalStyle = createGlobalStyle`
 
     #root, #__next {
     isolation: isolate;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
     }
 `;
 
