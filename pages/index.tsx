@@ -13,6 +13,24 @@ const Header = styled.header`
   margin-top: 1rem;
 `;
 
+const Main = styled.main`
+  
+`
+
+const Hero = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Heading1 = styled.h1`
+    font-family: var(--font-contents);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--color-text);
+`
+
+
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr min(1300px, 100%) 1fr;
@@ -20,7 +38,7 @@ const Grid = styled.div`
   & > * {
     grid-column: 2;
   }
-`;
+`
 
 const Nav = styled.ul`
   display: flex;
@@ -58,6 +76,30 @@ const StyledLink = styled.a`
     background-position: 0 90%;
   }
 `;
+
+const CTA = styled.div`
+    flex: 0 0 50%;
+`
+
+const HeroImages = styled.div`
+    flex: 0 0 50%;
+    &:first-child {
+      padding: 5rem 0;
+    }
+`
+
+const StyledImage = styled.img`
+  position: absolute;
+  width: 50%;
+  max-width: 283px;
+  z-index: 2;
+  bottom: 60px;
+  right: 90px;
+  padding: 0 10px;
+  display: block;
+  vertical-align: middle;
+  border-style: none;
+`
 
 export default function Home() {
   return (
@@ -98,6 +140,17 @@ export default function Home() {
             <Button href="#">Book an appointment</Button>
           </div>
         </Header>
+        <Main>
+      <Hero>
+        <CTA>
+          <Heading1>Discover & book local beauty professionals</Heading1>
+        </CTA>
+        <HeroImages>
+          <Image src="/adrian-fernandez.jpg" width="538" height="518" alt="adrian" />
+          <StyledImage src="/clarissa-carbungco.jpg" alt="clarissa" />
+        </HeroImages>
+      </Hero>
+        </Main>
       </Grid>
     </>
   );
