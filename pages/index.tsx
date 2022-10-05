@@ -1,9 +1,14 @@
+import { useState, useEffect, ChangeEvent } from "react";
+import { useForm } from "react-hook-form";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import GlobalStyles from "../src/globalStyles";
-import Button from "../src/components/Button";
+
+import GlobalStyles from "src/globalStyles";
+import Button from "src/components/Button";
+import SearchLocationBox from "src/components/Searchbox";
+
 
 const Header = styled.header`
   height: 4rem;
@@ -24,9 +29,9 @@ const Hero = styled.div`
 
 const Heading1 = styled.h1`
     font-family: var(--font-contents);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    line-height: 1.5;
+    line-height: 1;
     color: var(--color-text);
 `
 
@@ -101,7 +106,37 @@ const StyledImage = styled.img`
   border-style: none;
 `
 
-export default function Home() {
+interface IFormData {
+  address: string;
+  latitude: number;
+  longitude: number;
+  service: string;
+}
+
+interface IProps {}
+
+
+export default function Home({}: IProps) {
+  const [submitting, setSubmitting] = useState(false);  
+  const { register, handleSubmit, setValue, errors, watch } = useForm<
+    IFormData
+  >({ defaultValues: {} });
+
+  useEffect(() => {
+    register({ name: "address" }, { required: "Please enter your address" });
+    register({ name: "latitude" }, { required: true, min: -90, max: 90 });
+    register({ name: "longitude" }, { required: true, min: -180, max: 180 });
+  }, [register]);
+
+  const handleCreate = async (data: IFormData) => {};
+
+  const onSubmit = (data: IFormData) => {
+    setSubmitting(false);
+    handleCreate(data);
+  };
+
+  const address = watch("address");
+
   return (
     <>
       <GlobalStyles />
@@ -144,6 +179,16 @@ export default function Home() {
       <Hero>
         <CTA>
           <Heading1>Discover & book local beauty professionals</Heading1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+          <SearchLocationBox onSelectAddress={(address, latitude, longitude) => {
+            setValue("address", address || "");
+            setValue("latitude", latitude || 0);
+            setValue("longitude", longitude || 0);
+          }}
+          defaultValue="" />
+          {/* {errors.address && <p>{errors.address.message}</p>} */}
+          </form>
         </CTA>
         <HeroImages>
           <Image src="/adrian-fernandez.jpg" width="538" height="518" alt="adrian" />
