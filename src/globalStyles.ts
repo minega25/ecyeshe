@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
         --font-weight-bold: 600;
         --font-weight-medium: 500;
         --font-weight-light: 400;
+        --shadow-color: 0deg 0% 50%;
         --font-headings: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
         --font-contents: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
     }
