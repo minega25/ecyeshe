@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
     :root {
@@ -52,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
 
     input, button, textarea, select {
         font: inherit;
+        all: unset;
     }
 
     p, h1, h2, h3, h4, h5, h6 {
@@ -73,6 +74,25 @@ const GlobalStyle = createGlobalStyle`
         white-space: nowrap;
         border-width: 0;
     }
-`;
+    * {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
 
-export default GlobalStyle;
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  border: 3px solid var(--color-gray-100);
+}
+`
+
+export default GlobalStyle

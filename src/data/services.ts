@@ -7,5 +7,4 @@ export const services = [
   { name: 'WEAVES', href: '/search', image: '/weaves.png' },
   { name: 'EYELASHES', href: '/search', image: '/eyelashes.png' },
   { name: 'NAILS', href: '/search', image: '/nails.png' },
-  { name: 'KIDS', href: '/search', image: '/kids-haircuts.png' },
 ]
