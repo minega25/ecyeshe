@@ -1,6 +1,6 @@
-import React, { Children } from "react";
-import Link from "next/link";
-import styled from "styled-components";
+import React from 'react'
+import Link, { LinkProps } from 'next/link'
+import styled from 'styled-components'
 
 const ButtonLink = styled.a`
   background-color: var(--color-primary);
@@ -16,7 +16,7 @@ const ButtonLink = styled.a`
   margin: 0.4rem 0.8rem;
   line-height: 1.5;
   white-space: normal;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,9 +26,9 @@ const ButtonLink = styled.a`
     background-color: var(--color-background);
     border: 2px solid var(--color-primary);
   }
-`;
+`
 
-const ButtonSearchLink = styled.a`
+const SubmitButton = styled.button`
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   max-width: 47px;
@@ -45,7 +45,7 @@ const ButtonSearchLink = styled.a`
   margin: 0rem 0.8rem;
   line-height: 1.5;
   white-space: normal;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -54,21 +54,24 @@ const ButtonSearchLink = styled.a`
   &:hover {
     background-color: var(--color-background);
     border: 1px solid var(--color-primary);
-    padding: 2px 6px;
-  }  
-`;
+  }
+`
 
 interface ButtonProps {
-  children: React.ReactNode | null;
-  href: string | "#"
+  children: React.ReactNode | null
+  href?: string
 }
 
-function Button({ children, href }: ButtonProps) {
-  return <Link passHref href={href}><ButtonLink>{children}</ButtonLink></Link>;
+function Button({ children, href = '#' }: ButtonProps) {
+  return (
+    <Link passHref href={href}>
+      <ButtonLink>{children}</ButtonLink>
+    </Link>
+  )
 }
 
-export function ButtonSearch({ children, href }: ButtonProps) {
-  return <Link passHref href={href}><ButtonSearchLink>{children}</ButtonSearchLink></Link>;
+export function ButtonSearch({ children }: ButtonProps) {
+  return <SubmitButton type="submit">{children}</SubmitButton>
 }
 
-export default Button;
+export default Button
