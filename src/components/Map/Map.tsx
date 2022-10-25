@@ -52,8 +52,6 @@ function SingleMap({ nearbyBusinesses, chosenLocation }: IProps) {
           key={near.id}
           latitude={near.latitude}
           longitude={near.longitude}
-          offsetLeft={-15}
-          offsetTop={-15}
         >
           <Link href={`/business/${near.id}`}>
             <a style={{ width: '30px', height: '30px', fontSize: '30px' }}>

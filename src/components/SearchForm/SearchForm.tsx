@@ -61,7 +61,7 @@ function SearchForm({ defaultValues }: IProps) {
     return () => {
       router.events.off('routeChangeStart', handleRouteChange)
     }
-  }, [])
+  }, [asPath, router.events])
 
   const handleCreate = async (data: IFormData) => {
     Router.push({
