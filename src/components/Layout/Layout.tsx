@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,6 +7,9 @@ import styled from 'styled-components'
 import GlobalStyles from 'src/globalStyles'
 import Button from 'src/components/Button'
 import Footer from '../Footer'
+import { useAuth } from 'src/auth/useAuth'
+import Login from '../Login'
+import SignUp from '../Signup/Signup'
 
 const Header = styled.header`
   height: 4rem;
@@ -79,6 +82,18 @@ interface ILayout {
 }
 
 function Layout({ children }: ILayout) {
+  const dd = useAuth()
+  const [showLogin, setShowLogin] = useState<boolean>(false)
+  const [showSignup, setShowSignup] = useState<boolean>(false)
+
+  function handleShowLogin() {
+    setShowLogin(!showLogin)
+  }
+
+  function handleShowSignup() {
+    setShowSignup(!showSignup)
+  }
+
   return (
     <>
       <GlobalStyles />
@@ -110,14 +125,10 @@ function Layout({ children }: ILayout) {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link passHref href="#">
-                  <StyledLink>Sign Up</StyledLink>
-                </Link>
+                <StyledLink onClick={handleShowSignup}>Signup</StyledLink>
               </NavItem>
               <NavItem>
-                <Link passHref href="#">
-                  <StyledLink>Log In</StyledLink>
-                </Link>
+                <StyledLink onClick={handleShowLogin}>Log In</StyledLink>
               </NavItem>
               <NavItem>
                 <Link passHref href="#">
@@ -131,6 +142,11 @@ function Layout({ children }: ILayout) {
           </div>
         </Header>
         <Main>{children}</Main>
+        <Login showLoginModal={showLogin} setShowLoginModal={handleShowLogin} />
+        <SignUp
+          showSignupModal={showSignup}
+          setShowSignupModal={handleShowSignup}
+        />
         <Footer />
       </Grid>
     </>
