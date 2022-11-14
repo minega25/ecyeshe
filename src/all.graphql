@@ -1,0 +1,19 @@
+type Query {
+  allBusinesses: [Business!]
+  allClients: [Client!]
+}
+
+type Business @model {
+  firstname: String
+  lastname: String
+  email: String
+  password: String
+  phoneNumber: String
+  firebaseID: String
+}
+
+type Client @model {
+  fullName: String
+  email: String
+  firebaseID: String
+}

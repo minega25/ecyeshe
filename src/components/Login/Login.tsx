@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import styled from 'styled-components'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { PrimaryButton } from '../Button'
 import { StyledInput as Input } from '../Input'
@@ -44,6 +46,14 @@ const SocialAuth = styled.div`
   }
 `
 
+const ErrorMessage = styled.span`
+  color: var(--color-error);
+  background: var(--color-error-background);
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0.5rem 0rem;
+`
+
 interface IProps {
   showLoginModal: boolean | undefined
   setShowLoginModal: () => void
@@ -56,7 +66,21 @@ interface IFormData {
 
 function Login({ showLoginModal = false, setShowLoginModal }: IProps) {
   const router = useRouter()
-  const { register, handleSubmit, setValue } = useForm<IFormData>()
+  const [firebaseError, setFirebaseError] = useState()
+  const formSchema = Yup.object().shape({
+    email: Yup.string().email().required('Email is mandatory'),
+    password: Yup.string()
+      .required('Password is mandatory')
+      .min(3, 'Password must be at 3 char long'),
+  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormData>({
+    resolver: yupResolver(formSchema),
+    mode: 'onBlur',
+  })
 
   useEffect(() => {
     register('email', { required: 'Enter Email' })
@@ -71,38 +95,66 @@ function Login({ showLoginModal = false, setShowLoginModal }: IProps) {
     const { email, password } = data
     try {
       await logIn(email, password)
-      router.push('/dashboard')
+        .then(() => {
+          router.push('/dashboard')
+        })
+        .catch((error) => {
+          setFirebaseError(error.code.split('/')[1].split('-').join(' '))
+        })
     } catch (error) {
       console.log(error)
     }
   }
 
+  const handleError = (errors: any) => {
+    console.error('errors :>> ', errors)
+  }
+
   const handleGoogleAuth = () => {
     loginWithGoogle()
+      .then(() => {
+        router.push('/dashboard')
+      })
+      .catch((error) => {
+        setFirebaseError(error.code.split('/')[1].split('-').join(' '))
+      })
   }
 
   const handleFacebookAuth = () => {
     loginWithFacebook()
+      .then(() => {
+        router.push('/dashboard')
+      })
+      .catch((error) => {
+        setFirebaseError(error.code.split('/')[1].split('-').join(' '))
+      })
   }
 
   return (
     <Modal isOpen={showLoginModal} setIsOpen={setShowLoginModal}>
       <Container>
         <Separator>Sign in with</Separator>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit, handleError)}>
           <Input
             type="email"
             {...register('email')}
             required
             placeholder="Enter Email"
           />
+          {errors?.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
           <Input
             type="password"
             {...register('password')}
             required
             placeholder="Password"
           />
+          {errors?.password && (
+            <ErrorMessage>{errors.password.message}</ErrorMessage>
+          )}
           <PrimaryButton>Login</PrimaryButton>
+          {firebaseError && (
+            <ErrorMessage>wrong username or password</ErrorMessage>
+          )}
         </Form>
         <Separator>Or</Separator>
         <SocialAuth>

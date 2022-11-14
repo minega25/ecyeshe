@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
     :root {
+        --toastify-z-index: 9999 !important;
         --color-text: hsl(222deg, 22%, 5%);
         --color-background: hsl(0deg, 0%, 100%);
         --color-blurred-background: hsla(0deg, 0%, 100%, 0.85);
@@ -61,6 +62,10 @@ const GlobalStyle = createGlobalStyle`
 
     #root, #__next {
     isolation: isolate;
+    }
+
+    .Toastify {
+      z-index: 999999;
     }
 
     .sr-only {

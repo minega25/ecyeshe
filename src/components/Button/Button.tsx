@@ -72,16 +72,16 @@ export const PrimaryButton = styled.button`
   margin: 0rem 0.8rem;
   line-height: 1.5;
   white-space: normal;
-  transition: all 0.2s ease-in-out;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   word-break: break-word;
   text-decoration: none;
   box-sizing: border-box;
+  max-height: min-content;
+  border: 3px solid transparent;
   &:hover {
     cursor: pointer;
-    padding: 0.5rem 1rem;
     background-color: var(--color-background);
     border: 3px solid var(--color-primary);
   }
