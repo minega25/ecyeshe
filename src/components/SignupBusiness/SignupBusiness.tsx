@@ -64,7 +64,10 @@ interface IFormData {
   confirmPwd: string
 }
 
-function SignUp({ showSignupModal = false, setShowSignupModal }: IProps) {
+function SignupBusiness({
+  showSignupModal = false,
+  setShowSignupModal,
+}: IProps) {
   const [firebaseError, setFirebaseError] = useState()
   const router = useRouter()
   const formSchema = Yup.object().shape({
@@ -190,4 +193,4 @@ function SignUp({ showSignupModal = false, setShowSignupModal }: IProps) {
   )
 }
 
-export default SignUp
+export default SignupBusiness
