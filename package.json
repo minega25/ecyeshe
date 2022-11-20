@@ -13,9 +13,17 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",
+    "@mantine/core": "^5.8.2",
+    "@mantine/ds": "^5.8.2",
+    "@mantine/hooks": "^5.8.2",
+    "@mantine/next": "^5.8.2",
+    "@mantine/prism": "^5.8.2",
     "@reach/combobox": "^0.17.0",
     "@reach/dialog": "^0.18.0",
+    "@tabler/icons": "^1.112.0",
     "faunadb": "^4.7.1",
     "firebase": "^9.12.1",
     "firebase-admin": "^11.2.0",
