@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
@@ -15,6 +18,7 @@ import {
   GoogleLoginButton,
 } from 'react-social-login-buttons'
 import Modal from '../Modal'
+import Loading from '../Loading'
 
 const Form = styled.form`
   margin: 2rem 0;
@@ -66,6 +70,7 @@ interface IFormData {
 
 function SignUp({ showSignupModal = false, setShowSignupModal }: IProps) {
   const [firebaseError, setFirebaseError] = useState()
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const formSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is mandatory'),
@@ -100,12 +105,15 @@ function SignUp({ showSignupModal = false, setShowSignupModal }: IProps) {
   const onSubmit = async (data: IFormData) => {
     const { email, password } = data
     try {
+      setLoading(true)
       await signUp(email, password)
-        .then((data) => {
-          console.log('data :>> ', data)
-          // router.push('/dashboard')
+        .then(async ({ user }) => {
+          await sendEmailVerification(user)
+          setLoading(false)
+          router.push('/dashboard')
         })
         .catch((error) => {
+          setLoading(false)
           setFirebaseError(error.code.split('/')[1].split('-').join(' '))
         })
     } catch (error) {
@@ -171,7 +179,9 @@ function SignUp({ showSignupModal = false, setShowSignupModal }: IProps) {
           {errors?.confirmPwd && (
             <ErrorMessage>{errors.confirmPwd.message}</ErrorMessage>
           )}
-          <PrimaryButton>Create account</PrimaryButton>
+          <PrimaryButton disabled={loading}>
+            {loading ? <Loading /> : `Create account`}
+          </PrimaryButton>
           {firebaseError && <ErrorMessage>{firebaseError}</ErrorMessage>}
         </Form>
         <Separator>Or</Separator>

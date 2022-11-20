@@ -80,16 +80,26 @@ export const PrimaryButton = styled.button`
   box-sizing: border-box;
   max-height: min-content;
   border: 3px solid transparent;
+  &:disabled {
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+    background-color: var(--color-background);
+    border: 3px solid var(--color-gray-700);
+  }
   &:hover {
     cursor: pointer;
     background-color: var(--color-background);
     border: 3px solid var(--color-primary);
+  }
+  &:disabled:hover {
+    border: 3px solid var(--color-gray-900);
   }
 `
 
 interface ButtonProps {
   children: React.ReactNode | null
   href?: string
+  disabled?: boolean
 }
 
 function Button({ children, href = '#' }: ButtonProps) {
@@ -100,8 +110,12 @@ function Button({ children, href = '#' }: ButtonProps) {
   )
 }
 
-export function ButtonSearch({ children }: ButtonProps) {
-  return <SubmitButton type="submit">{children}</SubmitButton>
+export function ButtonSearch({ children, disabled = false }: ButtonProps) {
+  return (
+    <SubmitButton type="submit" disabled={disabled}>
+      {children}
+    </SubmitButton>
+  )
 }
 
 export default Button
