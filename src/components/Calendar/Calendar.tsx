@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -10,9 +9,10 @@ const CalendarContainer = styled.div`
 `
 
 const Calendar = () => {
-  const calendarRef = useRef(null)
   return (
     <CalendarContainer>
+      {/* 
+      // @ts-ignore */}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         editable
