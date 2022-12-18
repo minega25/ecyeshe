@@ -5,6 +5,7 @@ import Layout from 'src/components/Layout'
 import SearchForm from 'src/components/SearchForm'
 import { services } from 'src/data/services'
 import ServiceCard from 'src/components/ServiceCard'
+import Wrapper from 'src/components/Wrapper'
 
 const Hero = styled.section`
   display: flex;
@@ -62,29 +63,31 @@ interface IProps {}
 export default function Home({}: IProps) {
   return (
     <Layout>
-      <Hero>
-        <CTA>
-          <Heading1>Discover & book local beauty professionals</Heading1>
-          <SearchForm />
-        </CTA>
-        <HeroImages>
-          <Image
-            src="/adrian-fernandez.jpg"
-            width="538"
-            height="518"
-            alt="adrian"
-          />
-          <StyledImage src="/clarissa-carbungco.jpg" alt="clarissa" />
-        </HeroImages>
-      </Hero>
-      <Services>
-        <Heading1>Find top pros by service</Heading1>
-        <ServicesList>
-          {services.map(({ name, href, image }, index) => (
-            <ServiceCard key={index} name={name} href={href} image={image} />
-          ))}
-        </ServicesList>
-      </Services>
+      <Wrapper>
+        <Hero>
+          <CTA>
+            <Heading1>Discover & book local beauty professionals</Heading1>
+            <SearchForm />
+          </CTA>
+          <HeroImages>
+            <Image
+              src="/adrian-fernandez.jpg"
+              width="538"
+              height="518"
+              alt="adrian"
+            />
+            <StyledImage src="/clarissa-carbungco.jpg" alt="clarissa" />
+          </HeroImages>
+        </Hero>
+        <Services>
+          <Heading1>Find top pros by service</Heading1>
+          <ServicesList>
+            {services.map(({ name, href, image }, index) => (
+              <ServiceCard key={index} name={name} href={href} image={image} />
+            ))}
+          </ServicesList>
+        </Services>
+      </Wrapper>
     </Layout>
   )
 }

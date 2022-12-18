@@ -1,1 +1,1 @@
-export const SITE_URL = "ecyeshe.com";
+export const SITE_URL = 'ecyeshe.com'

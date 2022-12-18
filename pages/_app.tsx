@@ -4,6 +4,10 @@ import { MantineProvider } from '@mantine/core'
 // import { ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 
+import '@fullcalendar/common/main.css'
+import '@fullcalendar/daygrid/main.css'
+import { TabsStateProvider } from 'src/context/useTabs'
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider
@@ -29,8 +33,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <AuthProvider>
-        {/* <ToastContainer theme="colored" /> */}
-        <Component {...pageProps} />
+        <TabsStateProvider>
+          {/* <ToastContainer theme="colored" /> */}
+          <Component {...pageProps} />
+        </TabsStateProvider>
       </AuthProvider>
     </MantineProvider>
   )
