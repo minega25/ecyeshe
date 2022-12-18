@@ -7,9 +7,10 @@ import styled from 'styled-components'
 import GlobalStyles from 'src/globalStyles'
 import Button from 'src/components/Button'
 import Footer from '../Footer'
-import { useAuth } from 'src/auth/useAuth'
 import Login from '../Login'
 import SignUp from '../Signup/Signup'
+import FullBleed from '../FullBleed'
+import Wrapper from '../Wrapper'
 
 const Header = styled.header`
   height: 4rem;
@@ -20,17 +21,6 @@ const Header = styled.header`
 
   &:first-child {
     flex-grow: 3;
-  }
-`
-
-const Main = styled.main``
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr min(1300px, 100%) 1fr;
-
-  & > * {
-    grid-column: 2;
   }
 `
 
@@ -82,7 +72,6 @@ interface ILayout {
 }
 
 function Layout({ children }: ILayout) {
-  const dd = useAuth()
   const [showLogin, setShowLogin] = useState<boolean>(false)
   const [showSignup, setShowSignup] = useState<boolean>(false)
 
@@ -109,7 +98,7 @@ function Layout({ children }: ILayout) {
         </style>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid>
+      <Wrapper>
         <Header>
           <Link href="/">
             <Img width="170" height="130" src="/logo.png" alt="logo" />
@@ -120,7 +109,7 @@ function Layout({ children }: ILayout) {
             </h2>
             <NavItems>
               <NavItem>
-                <Link passHref href="#">
+                <Link passHref href="/join">
                   <StyledLink>Set Up My Business</StyledLink>
                 </Link>
               </NavItem>
@@ -141,14 +130,14 @@ function Layout({ children }: ILayout) {
             <Button href="#">Book an appointment</Button>
           </div>
         </Header>
-        <Main>{children}</Main>
+        <FullBleed>{children}</FullBleed>
         <Login showLoginModal={showLogin} setShowLoginModal={handleShowLogin} />
         <SignUp
           showSignupModal={showSignup}
           setShowSignupModal={handleShowSignup}
         />
         <Footer />
-      </Grid>
+      </Wrapper>
     </>
   )
 }
