@@ -1,9 +1,1 @@
-export const businessMenu = [
-  'Calendar',
-  'Clients',
-  'Growth',
-  'Marketing',
-  'Promotions',
-  'Profile',
-  'More...',
-]
+export const businessMenu = ['Calendar', 'Clients', 'Profile', 'More...']

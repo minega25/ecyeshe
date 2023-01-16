@@ -32,10 +32,10 @@ const ButtonLink = styled.a`
 const SubmitButton = styled.button`
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  max-width: 47px;
-  max-height: 47px;
-  width: 47px;
-  height: 47px;
+  max-width: 35px;
+  max-height: 35px;
+  width: 35px;
+  height: 35px;
   color: var(--color-text);
   border-radius: 0;
   font-family: var(--font-headings);
@@ -52,9 +52,10 @@ const SubmitButton = styled.button`
   justify-content: center;
   word-break: break-word;
   text-decoration: none;
+  border: 3px solid transparent;
   &:hover {
     background-color: var(--color-background);
-    border: 1px solid var(--color-primary);
+    border: 3px solid var(--color-primary);
   }
 `
 

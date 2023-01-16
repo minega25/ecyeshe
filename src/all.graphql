@@ -4,12 +4,12 @@ type Query {
 }
 
 type Business @model {
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   email: String
-  password: String
   phoneNumber: String
   firebaseID: String
+  marketingStrategy: String
 }
 
 type Client @model {
