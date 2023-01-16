@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { PasswordInput, Tooltip, createStyles } from '@mantine/core'
 
 interface IProps {
-  value: string
-  setValue: (arg: string) => void
+  currentValue?: string
   label: string
   placeholder: string
   required?: boolean
+  register: any
+  name: string
 }
 
 const useStyles = createStyles((theme) => ({
@@ -32,15 +33,16 @@ const useStyles = createStyles((theme) => ({
 }))
 
 function PasswordField({
-  value,
-  setValue,
+  currentValue,
   label,
+  name,
   placeholder,
+  register,
   required = false,
 }: IProps) {
   const { classes } = useStyles()
   const [opened, setOpened] = useState(false)
-  const valid = value.trim().length >= 6
+  const valid = currentValue && currentValue.length >= 6
 
   return (
     <Tooltip
@@ -55,11 +57,10 @@ function PasswordField({
       <PasswordInput
         label={label}
         required={required}
+        {...register(name)}
         placeholder={placeholder}
         onFocus={() => setOpened(true)}
         onBlur={() => setOpened(false)}
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
         classNames={classes}
       />
     </Tooltip>

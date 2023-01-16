@@ -6,10 +6,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { data } = req.body
+  const { data } = JSON.parse(req.body)
   let result = null
   try {
-    const result = await graphQLClient.request(createBusiness, { data })
+    result = await graphQLClient.request(createBusiness, { data: { ...data } })
   } catch (error) {
     console.error(error)
   }

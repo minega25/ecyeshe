@@ -5,10 +5,9 @@ export const createBusiness = gql`
     createBusiness(data: $data) {
       firebaseID
       phoneNumber
-      password
       email
-      lastname
-      firstname
+      lastName
+      firstName
     }
   }
 `

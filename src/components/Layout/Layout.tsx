@@ -101,7 +101,7 @@ function Layout({ children }: ILayout) {
       <Wrapper>
         <Header>
           <Link href="/">
-            <Img width="170" height="130" src="/logo.png" alt="logo" />
+            <Img width="170" height="130" src="/logo-ecyeshe.svg" alt="logo" />
           </Link>
           <Nav>
             <h2 className="sr-only" id="header-navigation">
