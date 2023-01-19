@@ -3,6 +3,7 @@ import { useAuth } from 'src/auth/useAuth'
 import LayoutBusiness from 'src/components/LayoutBusiness'
 import { businessMenu } from 'src/data/menu'
 import { useTabsContext } from 'src/context/useTabs'
+
 const Calendar = React.lazy(() => import('src/components/Calendar'))
 const Clients = React.lazy(() => import('src/components/Clients'))
 const Profile = React.lazy(() => import('src/components/BusinessProfile'))

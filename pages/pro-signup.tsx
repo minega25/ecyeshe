@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from 'firebase/auth'
 
 import { firebaseAuth } from 'src/auth/initFirebase'
@@ -15,6 +16,7 @@ import Layout from 'src/components/Layout'
 import Wrapper from 'src/components/Wrapper'
 import PasswordField from 'src/components/PasswordField'
 import { PrimaryButton } from 'src/components/Button'
+import Loading from 'src/components/Loading'
 
 const sources = [
   'Referred by my client',
@@ -148,22 +150,25 @@ const ProSignup = () => {
           firebaseID,
         },
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-      })
   }
 
   const onSubmit = async (data: IFormData) => {
-    const { email, password } = data
+    const { email, password, lastName } = data
 
     try {
       setLoading(true)
       await signUpViaFirebase(email, password)
         .then(async ({ user }) => {
           await sendEmailVerification(user)
+
+          await updateProfile(user, { displayName: lastName }).catch((err) =>
+            console.log(err),
+          )
 
           // make api call to register new user in fauna db
           createBusiness(data, user.uid).then(() => {
@@ -255,7 +260,9 @@ const ProSignup = () => {
             required
           />
           <Submit>
-            <PrimaryButton type="submit">Sign Up</PrimaryButton>
+            <PrimaryButton type="submit">
+              {loading ? <Loading /> : 'Sign Up'}
+            </PrimaryButton>
           </Submit>
         </Form>
       </Wrapper>

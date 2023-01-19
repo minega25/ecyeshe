@@ -4,17 +4,18 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-
-import { PrimaryButton } from '../Button'
-import { StyledInput as Input } from '../Input'
-import { firebaseAuth } from 'src/auth/initFirebase'
 import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons'
+import { useRouter } from 'next/router'
+
+import { PrimaryButton } from '../Button'
+import { StyledInput as Input } from '../Input'
+import { firebaseAuth } from 'src/auth/initFirebase'
 import Modal from '../Modal'
 import { loginWithFacebook, loginWithGoogle } from 'src/auth/authWithProviders'
-import { useRouter } from 'next/router'
+import Loading from '../Loading'
 
 const Form = styled.form`
   margin: 2rem 0;
@@ -66,7 +67,8 @@ interface IFormData {
 
 function Login({ showLoginModal = false, setShowLoginModal }: IProps) {
   const router = useRouter()
-  const [firebaseError, setFirebaseError] = useState()
+  const [firebaseError, setFirebaseError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>()
   const formSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is mandatory'),
     password: Yup.string()
@@ -94,11 +96,15 @@ function Login({ showLoginModal = false, setShowLoginModal }: IProps) {
   const onSubmit = async (data: IFormData) => {
     const { email, password } = data
     try {
+      setFirebaseError('')
+      setLoading(true)
       await logIn(email, password)
         .then(() => {
+          setLoading(false)
           router.push('/dashboard')
         })
         .catch((error) => {
+          setLoading(false)
           setFirebaseError(error.code.split('/')[1].split('-').join(' '))
         })
     } catch (error) {
@@ -151,7 +157,7 @@ function Login({ showLoginModal = false, setShowLoginModal }: IProps) {
           {errors?.password && (
             <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
-          <PrimaryButton>Login</PrimaryButton>
+          <PrimaryButton>{loading ? <Loading /> : 'Login'}</PrimaryButton>
           {firebaseError && (
             <ErrorMessage>wrong username or password</ErrorMessage>
           )}
