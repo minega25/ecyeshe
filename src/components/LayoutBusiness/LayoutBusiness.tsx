@@ -123,13 +123,8 @@ export default function HeaderTabs({ user, tabs, children }: HeaderTabsProps) {
       <div className={classes.header} style={{ marginBottom: '0' }}>
         <Container className={classes.mainSection}>
           <Group position="apart">
-            <Link href="/">
-              <Img
-                width="180"
-                height="60"
-                src="/logo-transparent.png"
-                alt="logo"
-              />
+            <Link href="/dashboard">
+              <Img width="170" height="50" src="/logo-ecyeshe.svg" alt="logo" />
             </Link>
 
             <Burger
