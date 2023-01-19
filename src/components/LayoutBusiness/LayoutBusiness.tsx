@@ -199,7 +199,7 @@ export default function HeaderTabs({ user, tabs, children }: HeaderTabsProps) {
               tab: classes.tab,
             }}
           >
-            <Tabs.List>{items}</Tabs.List>
+            <Tabs.List grow>{items}</Tabs.List>
           </Tabs>
         </Container>
       </div>
