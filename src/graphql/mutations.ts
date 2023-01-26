@@ -11,3 +11,17 @@ export const createBusiness = gql`
     }
   }
 `
+
+export const updateBusiness = gql`
+  mutation UpdateBusiness($data: BusinessInput!, $id: ID!) {
+    business: updateBusiness(data: $data, id: $id) {
+      name
+      salonNumber
+      phoneNumber
+      smsPhoneNumber
+      isMobileBusiness
+      streetAddress
+      city
+    }
+  }
+`

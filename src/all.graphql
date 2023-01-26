@@ -1,6 +1,7 @@
 type Query {
   allBusinesses: [Business!]
   allClients: [Client!]
+  allBusinessesByEmail(email: String): [Business!]
 }
 
 type Business @model {
@@ -8,8 +9,17 @@ type Business @model {
   lastName: String
   email: String
   phoneNumber: String
+  smsPhoneNumber: String
   firebaseID: String
   marketingStrategy: String
+  name: String
+  salonNumber: String
+  streetAddress: String
+  city: String
+  profession: String
+  speciality: String
+  aboutMe: String
+  isMobileBusiness: Boolean
 }
 
 type Client @model {
