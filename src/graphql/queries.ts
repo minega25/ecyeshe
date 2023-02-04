@@ -19,6 +19,7 @@ export const getBusinessInfo = gql`
         speciality
         aboutMe
         isMobileBusiness
+        _id
       }
     }
   }

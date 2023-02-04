@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { createStyles, TextInput, Switch } from '@mantine/core'
+import { createStyles, TextInput, Switch, LoadingOverlay } from '@mantine/core'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
@@ -10,6 +10,7 @@ import { firebaseAuth } from 'src/auth/initFirebase'
 import Wrapper from 'src/components/Wrapper'
 import { PrimaryButton } from 'src/components/Button'
 import Loading from 'src/components/Loading'
+import { useAuth } from 'src/auth/useAuth'
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -80,21 +81,22 @@ const EditBusinessInfo = () => {
   const router = useRouter()
   const { classes } = useStyles()
   const [loading, setLoading] = useState(false)
-  const [isMobileBusiness, setIsMobileBusiness] = useState<boolean>(false)
+  const [id, setId] = useState()
 
   const formSchema = Yup.object().shape({
-    name: Yup.string().required('Email is mandatory'),
-    salonNumber: Yup.string(),
-    phoneNumber: Yup.string(),
-    isMobileBusiness: Yup.boolean(),
-    streetAddress: Yup.string(),
-    city: Yup.string(),
+    name: Yup.string().required('The business name is mandatory'),
+    salonNumber: Yup.string().nullable(),
+    phoneNumber: Yup.string().nullable(),
+    isMobileBusiness: Yup.boolean().nullable(),
+    streetAddress: Yup.string().nullable(),
+    city: Yup.string().nullable(),
   })
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<IFormData>({
     resolver: yupResolver(formSchema),
     mode: 'onBlur',
@@ -103,6 +105,7 @@ const EditBusinessInfo = () => {
 
   useEffect(() => {
     if (firebaseAuth.currentUser?.email) {
+      setLoading(true)
       fetch('/api/get-single-business', {
         method: 'POST',
         body: JSON.stringify({
@@ -115,7 +118,31 @@ const EditBusinessInfo = () => {
           }
         })
         .then((data) => {
-          console.log('data :>> ', data)
+          const business = data?.allBusinessesByEmail?.data || null
+          if (business) {
+            const {
+              city,
+              streetAddress,
+              isMobileBusiness,
+              phoneNumber,
+              salonNumber,
+              name,
+              smsPhoneNumber,
+              _id,
+            } = business[0]
+
+            setId(_id)
+
+            setValue('city', city)
+            setValue('streetAddress', streetAddress)
+            setValue('isMobileBusiness', !!isMobileBusiness)
+            setValue('phoneNumber', phoneNumber)
+            setValue('salonNumber', salonNumber)
+            setValue('name', name)
+            setValue('smsPhoneNumber', smsPhoneNumber)
+
+            setLoading(false)
+          }
         })
         .catch((e) => console.log(e))
     }
@@ -135,7 +162,7 @@ const EditBusinessInfo = () => {
     console.error('errors :>> ', errors)
   }
 
-  const updateBusiness = (data: IFormData, firebaseID?: string) => {
+  const updateBusiness = (data: IFormData, id?: string) => {
     const {
       salonNumber,
       phoneNumber,
@@ -155,7 +182,7 @@ const EditBusinessInfo = () => {
           streetAddress,
           city,
         },
-        id: firebaseID,
+        id,
       }),
     }).then((res) => {
       if (res.ok) {
@@ -165,27 +192,28 @@ const EditBusinessInfo = () => {
   }
 
   const onSubmit = async (data: IFormData) => {
-    // const { email, password, lastName } = data
-    // try {
-    //   setLoading(true)
-    //   updateBusiness(data, user.uid).then(() => {
-    //     setLoading(false)
-    //     router.push('/dashboard')
-    //   })
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      setLoading(true)
+      updateBusiness(data, id).then(() => {
+        setLoading(false)
+        router.push('/dashboard')
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(onSubmit, handleError)}>
+        <LoadingOverlay visible={loading} overlayBlur={2} />
         <H4>Update your business info</H4>
         <TextInput
           label="Business Name"
           {...register('name')}
           placeholder="e.g. Calvin's Saloon"
           classNames={classes}
+          required
         />
         {errors?.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
         <TextInput
@@ -216,8 +244,7 @@ const EditBusinessInfo = () => {
         <H4>Business Location</H4>
         <Switch
           labelPosition="left"
-          checked={isMobileBusiness}
-          onChange={(event) => setIsMobileBusiness(event.currentTarget.checked)}
+          {...register('isMobileBusiness')}
           label="Mobile business"
           description="Turn on if you travel to meet your clients"
           size="md"
