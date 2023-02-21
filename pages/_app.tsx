@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app'
 import { AuthProvider } from 'src/auth/useAuth'
 import { MantineProvider } from '@mantine/core'
+import GlobalStyles from 'src/globalStyles'
 // import { ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <AuthProvider>
         <TabsStateProvider>
+          <GlobalStyles />
           {/* <ToastContainer theme="colored" /> */}
           <Component {...pageProps} />
         </TabsStateProvider>

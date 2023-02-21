@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
-import GlobalStyles from 'src/globalStyles'
 import Button from 'src/components/Button'
 import Footer from '../Footer'
 import Login from '../Login'
@@ -85,7 +84,6 @@ function Layout({ children }: ILayout) {
 
   return (
     <>
-      <GlobalStyles />
       <Head>
         <title>eCyeshe | Discover & book local beauty professionals</title>
         <meta

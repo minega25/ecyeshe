@@ -30,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
         --shadow-color: 0deg 0% 50%;
         --font-headings: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
         --font-contents: "Kumbh Sans", sans-serif,-apple-system,sans-serif;
+        --highlight-color: hsl(322deg, 100%, 54%);
     }
     *, *::before, *::after {
     box-sizing: border-box;
@@ -68,6 +69,8 @@ const GlobalStyle = createGlobalStyle`
       z-index: 999999;
     }
 
+    
+
     .sr-only {
         position: absolute;
         width: 1px;
@@ -97,6 +100,13 @@ const GlobalStyle = createGlobalStyle`
   background-color: var(--color-primary);
   border-radius: 20px;
   border: 3px solid var(--color-gray-100);
+}
+
+::selection {
+      background: var(--highlight-color);
+}
+::-moz-selection {
+  background: var(--highlight-color); 
 }
 `
 

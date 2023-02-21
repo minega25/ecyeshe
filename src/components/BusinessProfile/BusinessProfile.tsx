@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { Suspense, useRef } from 'react'
 import { createStyles, Tabs } from '@mantine/core'
 
 import Wrapper from 'src/components/Wrapper'
+import Loading from '../Loading'
+import useIntersectionObserver from 'src/hooks/useIntersectionObserver'
+const EditBusinessInfo = React.lazy(() => import('../EditBusinessInfo'))
 
 const useStyles = createStyles((theme) => ({
   root: {
-    marginTop: '0.5rem',
+    marginTop: '0.2rem',
   },
 }))
 
 const BusinessProfile = () => {
+  const editBusinessTab = useRef(null)
+  const isBusinessInfoVisible = useIntersectionObserver(editBusinessTab)
   const { classes } = useStyles()
 
   return (
     <Wrapper>
-      <Tabs classNames={classes} radius="xs" defaultValue="gallery">
+      <Tabs classNames={classes} radius="xs" defaultValue="edit">
         <Tabs.List grow position="center">
           <Tabs.Tab value="edit">Edit</Tabs.Tab>
           <Tabs.Tab value="preview">Preview</Tabs.Tab>
@@ -38,8 +43,12 @@ const BusinessProfile = () => {
         <Tabs.Panel value="personal_info" pt="xs">
           personal_info tab content
         </Tabs.Panel>
-        <Tabs.Panel value="business_info" pt="xs">
-          business_info tab content
+        <Tabs.Panel value="business_info" pt="xs" ref={editBusinessTab}>
+          {isBusinessInfoVisible && (
+            <Suspense fallback={<Loading />}>
+              <EditBusinessInfo />
+            </Suspense>
+          )}
         </Tabs.Panel>
         <Tabs.Panel value="manage_availability" pt="xs">
           manage_availability tab content
