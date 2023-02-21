@@ -107,7 +107,7 @@ function Layout({ children }: ILayout) {
             </h2>
             <NavItems>
               <NavItem>
-                <Link passHref href="/join">
+                <Link passHref href="/pro-signup">
                   <StyledLink>Set Up My Business</StyledLink>
                 </Link>
               </NavItem>
