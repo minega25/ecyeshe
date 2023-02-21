@@ -170,6 +170,7 @@ const EditBusinessInfo = () => {
       isMobileBusiness,
       streetAddress,
       city,
+      name,
     } = data
     return fetch('/api/update-business', {
       method: 'POST',
@@ -181,6 +182,7 @@ const EditBusinessInfo = () => {
           isMobileBusiness,
           streetAddress,
           city,
+          name,
         },
         id,
       }),
@@ -192,11 +194,11 @@ const EditBusinessInfo = () => {
   }
 
   const onSubmit = async (data: IFormData) => {
+    console.log(data)
     try {
       setLoading(true)
       updateBusiness(data, id).then(() => {
         setLoading(false)
-        router.push('/dashboard')
       })
     } catch (error) {
       console.log(error)
