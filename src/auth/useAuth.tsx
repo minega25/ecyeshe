@@ -14,6 +14,7 @@ interface IAuthContext {
   logout: () => void
   user: User | null
   isAuthenticated: boolean
+  loading: boolean
 }
 
 interface IAuthProviderProps {
@@ -24,10 +25,12 @@ const AuthContext = createContext<IAuthContext>({
   logout: () => null,
   isAuthenticated: false,
   user: null,
+  loading: false,
 })
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
 
   const logout = () => {
@@ -42,6 +45,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   }
 
   useEffect(() => {
+    setLoading(true)
     const cancelAuthListener = firebaseAuth.onIdTokenChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken()
@@ -51,6 +55,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         removeTokenCookie()
         setUser(null)
       }
+      setLoading(false)
     })
 
     return () => {
@@ -59,7 +64,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, logout }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated: !!user, logout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   )

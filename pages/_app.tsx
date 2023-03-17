@@ -7,6 +7,8 @@ import GlobalStyles from 'src/globalStyles'
 
 import '@fullcalendar/common/main.css'
 import '@fullcalendar/daygrid/main.css'
+import 'primereact/resources/primereact.min.css'
+import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import { TabsStateProvider } from 'src/context/useTabs'
 
 function MyApp({ Component, pageProps }: AppProps) {

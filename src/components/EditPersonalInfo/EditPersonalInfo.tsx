@@ -213,8 +213,8 @@ const EditBusinessInfo = () => {
 
   return (
     <Wrapper>
+      <LoadingOverlay visible={loading} overlayBlur={2} />
       <Form onSubmit={handleSubmit(onSubmit, handleError)}>
-        <LoadingOverlay visible={loading} overlayBlur={2} />
         <H4>Update your personal info</H4>
         <TextInput
           label="First name"

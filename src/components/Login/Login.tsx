@@ -37,6 +37,7 @@ const Separator = styled.span`
   font-weight: 700;
   font-family: var(--font-contents);
   margin: 1rem;
+  width: 100%;
 `
 
 const SocialAuth = styled.div`

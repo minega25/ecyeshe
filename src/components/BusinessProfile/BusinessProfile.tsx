@@ -5,6 +5,9 @@ import Wrapper from 'src/components/Wrapper'
 import Loading from '../Loading'
 import useIntersectionObserver from 'src/hooks/useIntersectionObserver'
 import EditPersonalInfo from '../EditPersonalInfo/EditPersonalInfo'
+import ServiceMenu from '../ServiceMenu/ServiceMenu'
+import PhotoGallery from '../PhotoGallery/PhotoGallery'
+import PreviewProfile from '../PreviewProfile/PreviewProfile'
 const EditBusinessInfo = React.lazy(() => import('../EditBusinessInfo'))
 
 const useStyles = createStyles((theme) => ({
@@ -15,9 +18,16 @@ const useStyles = createStyles((theme) => ({
 
 const BusinessProfile = () => {
   const editBusinessTab = useRef(null)
+  const serviceMenuTab = useRef(null)
   const editPersonalInfoTab = useRef(null)
+  const photoGalleryTab = useRef(null)
+  const previewProfileTab = useRef(null)
   const isBusinessInfoVisible = useIntersectionObserver(editBusinessTab)
   const isPersonalInfoVisible = useIntersectionObserver(editPersonalInfoTab)
+  const isServiceMenuVisible = useIntersectionObserver(serviceMenuTab)
+  const isPhotoGalleryVisible = useIntersectionObserver(photoGalleryTab)
+  const isPreviewProfileMenuVisible = useIntersectionObserver(previewProfileTab)
+
   const { classes } = useStyles()
 
   return (
@@ -29,19 +39,25 @@ const BusinessProfile = () => {
           <Tabs.Tab value="personal_info">Personal Info</Tabs.Tab>
           <Tabs.Tab value="business_info">Business Info</Tabs.Tab>
           <Tabs.Tab value="service_menu">Service Menu</Tabs.Tab>
-          <Tabs.Tab value="manage_availability">Manage Availability</Tabs.Tab>
           <Tabs.Tab value="photos">Photos</Tabs.Tab>
-          <Tabs.Tab value="ratings">Star Ratings & Reviews</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="edit" pt="xs">
           edit tab content
         </Tabs.Panel>
-        <Tabs.Panel value="preview" pt="xs">
-          preview tab content
+        <Tabs.Panel value="preview" pt="xs" ref={previewProfileTab}>
+          {isPreviewProfileMenuVisible && (
+            <Suspense fallback={<Loading />}>
+              <PreviewProfile />
+            </Suspense>
+          )}
         </Tabs.Panel>
-        <Tabs.Panel value="service_menu" pt="xs">
-          service_menu tab content
+        <Tabs.Panel value="service_menu" pt="xs" ref={serviceMenuTab}>
+          {isServiceMenuVisible && (
+            <Suspense fallback={<Loading />}>
+              <ServiceMenu />
+            </Suspense>
+          )}
         </Tabs.Panel>
         <Tabs.Panel value="personal_info" pt="xs" ref={editPersonalInfoTab}>
           {isPersonalInfoVisible && (
@@ -57,14 +73,12 @@ const BusinessProfile = () => {
             </Suspense>
           )}
         </Tabs.Panel>
-        <Tabs.Panel value="manage_availability" pt="xs">
-          manage_availability tab content
-        </Tabs.Panel>
-        <Tabs.Panel value="photos" pt="xs">
-          Photos tab content
-        </Tabs.Panel>
-        <Tabs.Panel value="ratings" pt="xs">
-          ratings tab content
+        <Tabs.Panel value="photos" pt="xs" ref={photoGalleryTab}>
+          {isPhotoGalleryVisible && (
+            <Suspense fallback={<Loading />}>
+              <PhotoGallery />
+            </Suspense>
+          )}
         </Tabs.Panel>
       </Tabs>
     </Wrapper>

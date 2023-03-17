@@ -4,12 +4,17 @@ import { useRouter } from 'next/router'
 
 import Layout from 'src/components/Layout'
 import SearchForm from 'src/components/SearchForm'
-import SingleMap from 'src/components/Map/Map'
+import SingleMap from 'src/components/Map'
+import BusinessCard from 'src/components/BusinessCard'
 import { nearbyBusinesses } from 'src/data/businesses'
 
 const Section = styled.section`
   display: flex;
   justify-content: space-between;
+`
+const BusinessCards = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 interface IQueryData {
@@ -48,6 +53,11 @@ const Search = () => {
               }}
             />
           )}
+          <BusinessCards>
+            {nearbyBusinesses.map((business) => (
+              <BusinessCard key={business.id} {...business} />
+            ))}
+          </BusinessCards>
         </div>
         <div>
           {isHydrationDone && JSON.stringify(data) !== '{}' && (

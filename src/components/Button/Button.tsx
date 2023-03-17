@@ -10,7 +10,7 @@ const ButtonLink = styled.a`
   border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+
   border-width: 2px;
   font-style: normal;
   margin: 0.4rem 0.8rem;
@@ -40,7 +40,7 @@ const SubmitButton = styled.button`
   border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+
   border-width: 2px;
   font-style: normal;
   margin: 0rem 0.8rem;
@@ -68,7 +68,7 @@ export const PrimaryButton = styled.button`
   border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+
   border-width: 2px;
   font-style: normal;
   margin: 0rem 0.8rem;

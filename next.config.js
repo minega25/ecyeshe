@@ -9,7 +9,7 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/timegrid',
 ])
 const nextConfig = withTM({
-  reactStrictMode: true,
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },

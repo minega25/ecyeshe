@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 const Content = styled(DialogContent)`
   display: block;
-  width: 400px;
 `
 
 const CloseBtn = styled.button`
@@ -21,13 +20,19 @@ interface IProps {
   children: React.ReactNode
   isOpen: boolean | undefined
   setIsOpen: (arg0: boolean) => void
+  width?: string
 }
 
-function Modal({ children, isOpen, setIsOpen }: IProps) {
+function Modal({ children, isOpen, setIsOpen, width }: IProps) {
   return (
     <div>
       <DialogOverlay isOpen={isOpen} onDismiss={() => setIsOpen(!isOpen)}>
-        <Content style={{ boxShadow: '0px 10px 50px hsla(0, 0%, 0%, 0.33)' }}>
+        <Content
+          style={{
+            boxShadow: '0px 10px 50px hsla(0, 0%, 0%, 0.33)',
+            width: width || '400px',
+          }}
+        >
           <CloseBtn onClick={() => setIsOpen(!isOpen)}>
             <Image src="/close.svg" width="30" height="30" alt="close" />
           </CloseBtn>
