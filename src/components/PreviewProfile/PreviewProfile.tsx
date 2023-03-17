@@ -131,7 +131,8 @@ function PreviewProfile() {
         <LimitedAvailability>
           <IconHourglassLow color="hsl(322deg, 100%, 54%)" />
           <p>
-            Minega's calendar is filling up for March - secure your spot now.
+            Minega&apos;s calendar is filling up for March - secure your spot
+            now.
           </p>
         </LimitedAvailability>
 
@@ -194,7 +195,7 @@ function PreviewProfile() {
 
           <Tabs.Panel value="about" pt="xs">
             <About>
-              <h3>Hi there, I'm minega</h3>
+              <h3>Hi there, I&apos;m minega</h3>
               <p>Joined in 2022</p>
             </About>
           </Tabs.Panel>
