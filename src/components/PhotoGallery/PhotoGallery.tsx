@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { LoadingOverlay } from '@mantine/core'
 
 import Wrapper from '../Wrapper/Wrapper'
 import { DropzoneButton } from '../Dropzone'
@@ -11,47 +12,11 @@ const Section = styled.section`
   margin: 0 auto;
 `
 
-const dummy = [
-  'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
-
-  'https://source.unsplash.com/Dm-qxdynoEc/800x799',
-
-  'https://source.unsplash.com/qDkso9nvCg0/600x799',
-
-  'https://source.unsplash.com/iecJiKe_RNg/600x799',
-
-  'https://source.unsplash.com/epcsn8Ed8kY/600x799',
-
-  'https://source.unsplash.com/NQSWvyVRIJk/800x599',
-
-  'https://source.unsplash.com/zh7GEuORbUw/600x799',
-
-  'https://source.unsplash.com/PpOHJezOalU/800x599',
-
-  'https://source.unsplash.com/I1ASdgphUH4/800x599',
-]
-
 function PhotoGallery() {
-  const [photos, setPhotos] = useState(dummy)
+  const [photos, setPhotos] = useState([])
   const [id, setId] = useState('')
   const [loading, setLoading] = useState<boolean>(false)
-
-  const updateBusiness = (photos: string, id?: string) => {
-    setLoading(true)
-    return fetch('/api/update-business', {
-      method: 'POST',
-      body: JSON.stringify({
-        data: {
-          photos,
-        },
-        id,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-    })
-  }
+  console.log('loading :>> ', loading)
 
   useEffect(() => {
     if (firebaseAuth.currentUser?.email) {
@@ -70,24 +35,28 @@ function PhotoGallery() {
         .then((data) => {
           const business = data?.allBusinessesByEmail?.data || null
           if (business) {
-            const { _id } = business[0]
-
+            const { _id, photos: allPhotos } = business[0]
             setId(_id)
-            setLoading(false)
+            if (photos) {
+              setPhotos(JSON.parse(allPhotos))
+            }
           }
+          setLoading(false)
         })
         .catch((e) => console.log(e))
     }
   }, [])
 
-  useEffect(() => {
-    updateBusiness(JSON.stringify(photos), id)
-  }, [photos])
-
   return (
     <Wrapper>
+      <LoadingOverlay visible={loading} overlayBlur={2} />
       <Section>
-        <DropzoneButton photos={photos} setPhotos={setPhotos} />
+        <DropzoneButton
+          photos={photos}
+          setPhotos={setPhotos}
+          setLoading={setLoading}
+          id={id}
+        />
         <GalleryWithLightBox photos={photos} />
       </Section>
     </Wrapper>

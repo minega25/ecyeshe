@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Text, Group, Button, createStyles } from '@mantine/core'
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone'
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons'
@@ -30,19 +31,46 @@ const useStyles = createStyles((theme) => ({
 }))
 
 interface IProps {
-  setPhotos: (arg: string[]) => void
+  setPhotos: (arg: any) => void
   photos: string[]
+  id: string
+  setLoading: (arg: any) => void
 }
 
-export function DropzoneButton({ setPhotos, photos }: IProps) {
+export function DropzoneButton({ setPhotos, photos, id, setLoading }: IProps) {
   const { classes, theme } = useStyles()
+
+  const updateBusiness = (photos: string, id?: string) => {
+    setLoading(true)
+    fetch('/api/update-business', {
+      method: 'POST',
+      body: JSON.stringify({
+        data: {
+          photos,
+        },
+        id,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setLoading(false)
+          return res.json()
+        }
+      })
+      .catch((e) => {
+        console.error(e)
+        setLoading(false)
+      })
+  }
 
   return (
     <div className={classes.wrapper}>
       <CldUploadButton
+        onError={(e: any) => console.error(e)}
         onUpload={(result: any, widget: any) => {
           const newPhotos = [...photos, result?.info?.url]
           setPhotos(newPhotos)
+          updateBusiness(JSON.stringify(newPhotos), id)
           widget.close()
         }}
         uploadPreset="k265nyqn"
