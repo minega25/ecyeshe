@@ -25,3 +25,16 @@ export const updateBusiness = gql`
     }
   }
 `
+
+export const updateBusinessServices = gql`
+  mutation UpdateBusinessServices($business: ID!, $service: [ID!]) {
+    updateBusiness(id: $business, data: { services: { connect: $service } }) {
+      _id
+      services {
+        data {
+          name
+        }
+      }
+    }
+  }
+`

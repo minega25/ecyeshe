@@ -4,12 +4,22 @@ import { useRouter } from 'next/router'
 
 import Layout from 'src/components/Layout'
 import SearchForm from 'src/components/SearchForm'
-import SingleMap from 'src/components/Map/Map'
+import SingleMap from 'src/components/Map'
+import BusinessCard from 'src/components/BusinessCard'
 import { nearbyBusinesses } from 'src/data/businesses'
 
 const Section = styled.section`
   display: flex;
   justify-content: space-between;
+`
+const BusinessCards = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const MapBox = styled.div`
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `
 
 interface IQueryData {
@@ -48,8 +58,13 @@ const Search = () => {
               }}
             />
           )}
+          <BusinessCards>
+            {nearbyBusinesses.map((business) => (
+              <BusinessCard key={business.id} {...business} />
+            ))}
+          </BusinessCards>
         </div>
-        <div>
+        <MapBox>
           {isHydrationDone && JSON.stringify(data) !== '{}' && (
             <SingleMap
               chosenLocation={{
@@ -59,7 +74,7 @@ const Search = () => {
               nearbyBusinesses={nearbyBusinesses}
             />
           )}
-        </div>
+        </MapBox>
       </Section>
     </Layout>
   )

@@ -2,11 +2,15 @@ import { AppProps } from 'next/app'
 import { AuthProvider } from 'src/auth/useAuth'
 import { MantineProvider } from '@mantine/core'
 import GlobalStyles from 'src/globalStyles'
-// import { ToastContainer } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
+import 'react-toastify/dist/ReactToastify.css'
 import '@fullcalendar/common/main.css'
 import '@fullcalendar/daygrid/main.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
+import 'primereact/resources/themes/lara-light-indigo/theme.css'
+import '../src/styles/button.css'
 import { TabsStateProvider } from 'src/context/useTabs'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -36,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AuthProvider>
         <TabsStateProvider>
           <GlobalStyles />
-          {/* <ToastContainer theme="colored" /> */}
+          <ToastContainer theme="colored" />
           <Component {...pageProps} />
         </TabsStateProvider>
       </AuthProvider>

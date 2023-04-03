@@ -13,7 +13,7 @@ const Ellipsis = styled.div`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--primary-color);
+    background: var(--color-primary);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 

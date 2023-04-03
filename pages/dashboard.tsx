@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { useAuth } from 'src/auth/useAuth'
 import LayoutBusiness from 'src/components/LayoutBusiness'
 import { businessMenu } from 'src/data/menu'
@@ -10,7 +10,7 @@ const Profile = React.lazy(() => import('src/components/BusinessProfile'))
 
 const Dashboard = () => {
   const { tab } = useTabsContext()
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
 
   return (
     <LayoutBusiness

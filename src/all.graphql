@@ -2,6 +2,7 @@ type Query {
   allBusinesses: [Business!]
   allClients: [Client!]
   allBusinessesByEmail(email: String): [Business!]
+  allServices: [Service!]
 }
 
 type Business @model {
@@ -20,10 +21,18 @@ type Business @model {
   speciality: String
   aboutMe: String
   isMobileBusiness: Boolean
+  services: [Service] @relation
+  serviceDetails: String
+  photos: String
 }
 
 type Client @model {
   fullName: String
   email: String
   firebaseID: String
+}
+
+type Service {
+  name: String!
+  businesses: [Business] @relation
 }

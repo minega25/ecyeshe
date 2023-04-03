@@ -20,6 +20,39 @@ export const getBusinessInfo = gql`
         aboutMe
         isMobileBusiness
         _id
+        serviceDetails
+        photos
+        services {
+          data {
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getAllServices = gql`
+  query {
+    allServices {
+      data {
+        _id
+        name
+      }
+    }
+  }
+`
+
+export const getAllBusinesses = gql`
+  query {
+    allBusinesses {
+      data {
+        _id
+        name
+        firstName
+        lastName
+        serviceDetails
+        photos
       }
     }
   }

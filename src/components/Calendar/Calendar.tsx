@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import FullCalendar from '../FullCalendar'
 
 const CalendarContainer = styled.div`
   max-height: 90vh;
@@ -11,13 +8,7 @@ const CalendarContainer = styled.div`
 const Calendar = () => {
   return (
     <CalendarContainer>
-      {/* 
-      // @ts-ignore */}
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        editable
-        selectable
-      />
+      <FullCalendar />
     </CalendarContainer>
   )
 }

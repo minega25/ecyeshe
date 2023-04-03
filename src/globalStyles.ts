@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+  
     :root {
         --toastify-z-index: 9999 !important;
         --color-text: hsl(222deg, 22%, 5%);

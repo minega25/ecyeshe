@@ -1,13 +1,21 @@
+import { useState } from 'react'
 import { TextInput, ActionIcon, useMantineTheme } from '@mantine/core'
-//@ts-ignore
 import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons'
 
 interface IProps {
   placeholder: string
+  onChange?: (args: string) => void
 }
 
-export default function InputWithButton({ placeholder }: IProps) {
+function SearchInput({ placeholder, onChange }: IProps) {
+  const [searchTerms, setSearchTerms] = useState('')
   const theme = useMantineTheme()
+
+  const handleOnChange = (event: any) => {
+    const { value } = event.target
+    setSearchTerms(value)
+    if (onChange) onChange(value)
+  }
 
   return (
     <TextInput
@@ -30,6 +38,10 @@ export default function InputWithButton({ placeholder }: IProps) {
       }
       placeholder={placeholder}
       rightSectionWidth={60}
+      value={searchTerms}
+      onChange={handleOnChange}
     />
   )
 }
+
+export default SearchInput

@@ -10,7 +10,7 @@ const ButtonLink = styled.a`
   border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+
   border-width: 2px;
   font-style: normal;
   margin: 0.4rem 0.8rem;
@@ -40,7 +40,7 @@ const SubmitButton = styled.button`
   border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+
   border-width: 2px;
   font-style: normal;
   margin: 0rem 0.8rem;
@@ -65,10 +65,10 @@ export const PrimaryButton = styled.button`
   width: fit-content;
   padding: 0.5rem 1rem;
   color: var(--color-text);
-  border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
-  font-size: 1.25rem;
+  border-radius: 0;
+
   border-width: 2px;
   font-style: normal;
   margin: 0rem 0.8rem;
@@ -101,7 +101,29 @@ export const PrimaryButton = styled.button`
 interface ButtonProps {
   children: React.ReactNode | null
   href?: string
+  onClick?: any
   disabled?: boolean
+  type?: 'button' | 'submit' | 'reset' | undefined
+}
+
+export const Button2 = ({
+  children,
+  onClick,
+  disabled,
+  type = 'button',
+}: ButtonProps) => {
+  return (
+    <button
+      type={type}
+      className="pushable"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <span className="shadow"></span>
+      <span className="edge"></span>
+      <span className="front">{children}</span>
+    </button>
+  )
 }
 
 function Button({ children, href = '#' }: ButtonProps) {
