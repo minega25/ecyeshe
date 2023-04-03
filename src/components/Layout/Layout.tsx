@@ -4,18 +4,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
-import Button from 'src/components/Button'
+import Button, { Button2 } from 'src/components/Button'
 import Footer from '../Footer'
 import Login from '../Login'
 import SignUp from '../Signup/Signup'
 import FullBleed from '../FullBleed'
 import Wrapper from '../Wrapper'
+import { useRouter } from 'next/router'
 
 const Header = styled.header`
   height: 4rem;
   display: flex;
   flex-direction: 'row';
   justify-content: space-between;
+  align-items: center;
   margin: 2rem 0;
 
   &:first-child {
@@ -71,6 +73,7 @@ interface ILayout {
 }
 
 function Layout({ children }: ILayout) {
+  const router = useRouter()
   const [showLogin, setShowLogin] = useState<boolean>(false)
   const [showSignup, setShowSignup] = useState<boolean>(false)
 
@@ -125,7 +128,15 @@ function Layout({ children }: ILayout) {
             </NavItems>
           </Nav>
           <div>
-            <Button href="#">Book an appointment</Button>
+            <Button2
+              onClick={() =>
+                router.push(
+                  '/search?address=Simba+Supermarket%2C+Kimironko%2C+Kimironko%2C+Kigali%2C+Rwanda&latitude=-1.9498715&longitude=30.1247395&service=Crochet+Braids',
+                )
+              }
+            >
+              Book an appointment
+            </Button2>
           </div>
         </Header>
         <FullBleed>{children}</FullBleed>

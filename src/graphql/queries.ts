@@ -42,3 +42,18 @@ export const getAllServices = gql`
     }
   }
 `
+
+export const getAllBusinesses = gql`
+  query {
+    allBusinesses {
+      data {
+        _id
+        name
+        firstName
+        lastName
+        serviceDetails
+        photos
+      }
+    }
+  }
+`

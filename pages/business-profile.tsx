@@ -5,11 +5,11 @@ import Layout from 'src/components/Layout'
 import { IconHourglassLow, IconStar } from '@tabler/icons'
 import { Anchor, Space, Stack, Tabs, Text, Group } from '@mantine/core'
 import { Calendar } from 'primereact/calendar'
-import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 
 import Wrapper from 'src/components/Wrapper/Wrapper'
 import UserInfo from 'src/components/UserInfo/UserInfo'
-import { PrimaryButton } from 'src/components/Button'
+import { Button2, PrimaryButton } from 'src/components/Button'
 import Modal from 'src/components/Modal/Modal'
 
 const Section = styled.section`
@@ -50,6 +50,12 @@ const Panel = styled.div`
   justify-items: center;
 `
 
+const H1 = styled.h1`
+  font-size: 1rem;
+  text-align: center;
+  margin: 1rem 0;
+`
+
 const H3 = styled.div`
   display: flex;
 
@@ -70,6 +76,23 @@ const Bar = styled.span`
   border: 2px solid hsl(322deg, 100%, 54%);
   height: 0;
   margin: 0 0.5rem;
+`
+
+const Time = styled.div`
+  margin: 1rem 0;
+`
+
+const Assurance = styled.div`
+  padding: 0.2rem 1rem;
+  background: var(--color-gray-100);
+  margin: 1rem 0;
+`
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `
 
 const user = {
@@ -142,16 +165,67 @@ interface ISeeTimesProps {
 }
 
 const SeeTimes = ({ showModal, setshowModal }: ISeeTimesProps) => {
+  const notify = () => {
+    toast.success('Booking successful!')
+    setshowModal(false)
+  }
+  let today = new Date()
+  let month = today.getMonth()
+  let year = today.getFullYear()
+  let prevMonth = month === 0 ? 11 : month - 1
+  let prevYear = prevMonth === 11 ? year - 1 : year
+  let nextMonth = month === 11 ? 0 : month + 1
+  let nextYear = nextMonth === 0 ? year + 1 : year
+  let minDate = new Date()
+  minDate.setMonth(prevMonth)
+  minDate.setFullYear(prevYear)
+  let maxDate = new Date()
+  maxDate.setMonth(nextMonth)
+  maxDate.setFullYear(nextYear)
   const [date, setDate] = useState(null)
+  const [time, setTime] = useState()
   return (
     <Modal isOpen={showModal} setIsOpen={setshowModal} width="600px">
+      <H1>Book appointment</H1>
       <Calendar
         value={date}
         onChange={(e) => setDate(e.value)}
         inline
         showWeek
         style={{ width: '600px' }}
+        minDate={minDate}
+        maxDate={maxDate}
       />
+      {date && (
+        <div>
+          <Time>
+            <Calendar
+              value={time}
+              onChange={(e) => setTime(e.value)}
+              timeOnly
+              placeholder="Select available time"
+            />
+          </Time>
+          <Assurance>
+            <h5>Reserve with Confidence</h5>
+            <Space h="sm" />
+            <p>
+              You will not be charged if you cancel at least 24 hours before
+              your appointment starts. Otherwise, you will be charged 50% of
+              service price for late cancellations and 100% for no shows.
+              StyleSeat is the safest way to pay to avoid scams. We are unable
+              to provide payment protection if you pay your pro via Cash app,
+              Venmo, cash, etc.
+            </p>
+          </Assurance>
+          <Center>
+            <Space h="sm" />
+            <p>I agree to the terms of service and cancellation policy.</p>
+            <Space h="sm" />
+            <Button2 onClick={notify}>Book now</Button2>
+          </Center>
+        </div>
+      )}
     </Modal>
   )
 }
@@ -190,28 +264,15 @@ function BusinessProfile() {
               />
 
               <Service
-                name="Bang Trim"
+                name="Locs"
                 price="1000"
                 duration="15 minutes"
                 description="asdfasdfasdfasdfa"
                 setshowModal={setshowModal}
               />
+
               <Service
-                name="Bang Trim"
-                price="1000"
-                duration="15 minutes"
-                description="asdfasdfasdfasdfa"
-                setshowModal={setshowModal}
-              />
-              <Service
-                name="Bang Trim"
-                price="1000"
-                duration="15 minutes"
-                description="asdfasdfasdfasdfa"
-                setshowModal={setshowModal}
-              />
-              <Service
-                name="Bang Trim"
+                name="Crochet Braids"
                 price="1000"
                 duration="15 minutes"
                 description="asdfasdfasdfasdfa"

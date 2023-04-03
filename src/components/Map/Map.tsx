@@ -41,8 +41,8 @@ function SingleMap({ nearbyBusinesses, chosenLocation }: IProps) {
       onMove={(evt) => setViewport(evt.viewState)}
       scrollZoom={false}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-      mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
-      style={{ width: '50vw', height: '80vh', margin: '0' }}
+      mapStyle="mapbox://styles/mapbox/navigation-day-v1"
+      style={{ width: '40vw', height: '80vh', margin: '0' }}
     >
       <NavControl>
         <NavigationControl showCompass={false} />

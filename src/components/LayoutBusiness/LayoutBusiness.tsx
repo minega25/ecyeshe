@@ -23,6 +23,8 @@ import styled from 'styled-components'
 import { useAuth } from 'src/auth/useAuth'
 import Wrapper from '../Wrapper'
 import { TabsStateProvider, useTabsContext } from 'src/context/useTabs'
+import { useRouter } from 'next/router'
+useRouter
 
 const Img = styled(Image)`
   cursor: pointer;
@@ -106,6 +108,7 @@ interface HeaderTabsProps {
 }
 
 export default function HeaderTabs({ user, tabs, children }: HeaderTabsProps) {
+  const router = useRouter()
   const { logout } = useAuth()
   const { setTab } = useTabsContext()
   const { classes, cx } = useStyles()
@@ -162,7 +165,9 @@ export default function HeaderTabs({ user, tabs, children }: HeaderTabsProps) {
                 </UnstyledButton>
               </Menu.Target>
               <Menu.Dropdown>
-                <Menu.Item>Directory</Menu.Item>
+                <Menu.Item onClick={() => router.push('/')}>
+                  Directory
+                </Menu.Item>
                 <Menu.Item>Profile</Menu.Item>
 
                 <Menu.Label>Settings</Menu.Label>

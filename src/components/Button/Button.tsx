@@ -65,9 +65,9 @@ export const PrimaryButton = styled.button`
   width: fit-content;
   padding: 0.5rem 1rem;
   color: var(--color-text);
-  border-radius: 0;
   font-family: var(--font-headings);
   font-weight: 700;
+  border-radius: 0;
 
   border-width: 2px;
   font-style: normal;
@@ -101,7 +101,29 @@ export const PrimaryButton = styled.button`
 interface ButtonProps {
   children: React.ReactNode | null
   href?: string
+  onClick?: any
   disabled?: boolean
+  type?: 'button' | 'submit' | 'reset' | undefined
+}
+
+export const Button2 = ({
+  children,
+  onClick,
+  disabled,
+  type = 'button',
+}: ButtonProps) => {
+  return (
+    <button
+      type={type}
+      className="pushable"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <span className="shadow"></span>
+      <span className="edge"></span>
+      <span className="front">{children}</span>
+    </button>
+  )
 }
 
 function Button({ children, href = '#' }: ButtonProps) {

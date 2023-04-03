@@ -4,7 +4,7 @@ import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons'
 
 interface IProps {
   placeholder: string
-  onChange: (args: string) => void
+  onChange?: (args: string) => void
 }
 
 function SearchInput({ placeholder, onChange }: IProps) {
@@ -14,7 +14,7 @@ function SearchInput({ placeholder, onChange }: IProps) {
   const handleOnChange = (event: any) => {
     const { value } = event.target
     setSearchTerms(value)
-    onChange(value)
+    if (onChange) onChange(value)
   }
 
   return (

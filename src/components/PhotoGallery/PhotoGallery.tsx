@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { LoadingOverlay } from '@mantine/core'
 
 import Wrapper from '../Wrapper/Wrapper'
-import { DropzoneButton } from '../Dropzone'
+import DropzoneButton from '../Dropzone'
 import styled from 'styled-components'
 import GalleryWithLightBox from '../GalleryWithLightBox/GalleryWithLightBox'
 import { firebaseAuth } from 'src/auth/initFirebase'

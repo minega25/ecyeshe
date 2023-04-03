@@ -27,16 +27,19 @@ const StyledCbInput = styled(ComboboxInput)`
 interface IServiceSearchBoxProps {
   onSelectService: (service: string) => void
   defaultValue: string | undefined
+  allBusinessesAndServices: string[]
 }
 
 export default function ServiceSearchBox({
   defaultValue,
   onSelectService,
+  allBusinessesAndServices,
 }: IServiceSearchBoxProps) {
   return (
     <ReadyServiceSearchBox
       defaultValue={defaultValue}
       onSelectService={onSelectService}
+      allBusinessesAndServices={allBusinessesAndServices}
     />
   )
 }
@@ -44,6 +47,7 @@ export default function ServiceSearchBox({
 function ReadyServiceSearchBox({
   defaultValue,
   onSelectService,
+  allBusinessesAndServices,
 }: IServiceSearchBoxProps) {
   const [service, setService] = useState<string>(defaultValue || '')
 
@@ -69,11 +73,9 @@ function ReadyServiceSearchBox({
       />
       <ComboboxPopover>
         <ComboboxList>
-          {['BRAIDS', 'NATURAL HAIR', 'HAIRCUT', "MEN'S HAIRCUT", 'LOCS'].map(
-            (curr, index) => {
-              return <ComboboxOption key={index} value={curr} />
-            },
-          )}
+          {allBusinessesAndServices.map((curr, index) => {
+            return <ComboboxOption key={index} value={curr} />
+          })}
         </ComboboxList>
       </ComboboxPopover>
     </Combobox>

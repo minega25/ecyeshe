@@ -65,6 +65,7 @@ interface IFormData {
   isMobileBusiness: boolean
   streetAddress: string
   city: string
+  rsbid: string
 }
 
 const defaultValues: IFormData = {
@@ -75,6 +76,7 @@ const defaultValues: IFormData = {
   isMobileBusiness: false,
   streetAddress: '',
   city: '',
+  rsbid: '',
 }
 
 const EditBusinessInfo = () => {
@@ -156,6 +158,7 @@ const EditBusinessInfo = () => {
     register('isMobileBusiness')
     register('streetAddress')
     register('city')
+    register('rsbid')
   }, [register])
 
   const handleError = (errors: any) => {
@@ -242,6 +245,12 @@ const EditBusinessInfo = () => {
         {errors?.smsPhoneNumber && (
           <ErrorMessage>{errors.smsPhoneNumber.message}</ErrorMessage>
         )}
+        <TextInput
+          label="RSB Identification number"
+          {...register('rsbid')}
+          classNames={classes}
+        />
+        {errors?.rsbid && <ErrorMessage>{errors.rsbid.message}</ErrorMessage>}
 
         <H4>Business Location</H4>
         <Switch

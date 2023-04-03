@@ -37,7 +37,12 @@ interface IProps {
   setLoading: (arg: any) => void
 }
 
-export function DropzoneButton({ setPhotos, photos, id, setLoading }: IProps) {
+export default function DropzoneButton({
+  setPhotos,
+  photos,
+  id,
+  setLoading,
+}: IProps) {
   const { classes, theme } = useStyles()
 
   const updateBusiness = (photos: string, id?: string) => {

@@ -32,19 +32,14 @@ const BusinessProfile = () => {
 
   return (
     <Wrapper>
-      <Tabs classNames={classes} radius="xs" defaultValue="edit">
+      <Tabs classNames={classes} radius="xs" defaultValue="personal_info">
         <Tabs.List grow position="center">
-          <Tabs.Tab value="edit">Edit</Tabs.Tab>
           <Tabs.Tab value="preview">Preview</Tabs.Tab>
           <Tabs.Tab value="personal_info">Personal Info</Tabs.Tab>
           <Tabs.Tab value="business_info">Business Info</Tabs.Tab>
           <Tabs.Tab value="service_menu">Service Menu</Tabs.Tab>
           <Tabs.Tab value="photos">Photos</Tabs.Tab>
         </Tabs.List>
-
-        <Tabs.Panel value="edit" pt="xs">
-          edit tab content
-        </Tabs.Panel>
         <Tabs.Panel value="preview" pt="xs" ref={previewProfileTab}>
           {isPreviewProfileMenuVisible && (
             <Suspense fallback={<Loading />}>

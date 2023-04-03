@@ -17,6 +17,11 @@ const BusinessCards = styled.div`
   flex-direction: column;
 `
 
+const MapBox = styled.div`
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+`
+
 interface IQueryData {
   latitude?: string | string[]
   longitude?: string | string[]
@@ -59,7 +64,7 @@ const Search = () => {
             ))}
           </BusinessCards>
         </div>
-        <div>
+        <MapBox>
           {isHydrationDone && JSON.stringify(data) !== '{}' && (
             <SingleMap
               chosenLocation={{
@@ -69,7 +74,7 @@ const Search = () => {
               nearbyBusinesses={nearbyBusinesses}
             />
           )}
-        </div>
+        </MapBox>
       </Section>
     </Layout>
   )
