@@ -5,9 +5,9 @@ import Carousel, { Modal, ModalGateway } from 'react-images'
 
 import Wrapper from '../Wrapper/Wrapper'
 
-function GalleryWithLightBox({ photos }) {
+function GalleryWithLightBox({ photos = [] }) {
   const [allImages, setAllImages] = useState(
-    photos.map((photo) => ({ src: photo, width: 4, height: 3 })),
+    photos?.map((photo) => ({ src: photo, width: 4, height: 3 })) || [],
   )
 
   const [currentImage, setCurrentImage] = useState(0)
@@ -24,7 +24,9 @@ function GalleryWithLightBox({ photos }) {
   }
 
   useEffect(() => {
-    setAllImages(photos.map((photo) => ({ src: photo, width: 4, height: 3 })))
+    setAllImages(
+      photos?.map((photo) => ({ src: photo, width: 4, height: 3 })) || [],
+    )
   }, [photos])
 
   return (

@@ -17,6 +17,7 @@ import Wrapper from 'src/components/Wrapper'
 import PasswordField from 'src/components/PasswordField'
 import { PrimaryButton } from 'src/components/Button'
 import Loading from 'src/components/Loading'
+import { toast } from 'react-toastify'
 
 const sources = [
   'Referred by my client',
@@ -89,7 +90,7 @@ interface IFormData {
 const ProSignup = () => {
   const router = useRouter()
   const { classes } = useStyles()
-  const [firebaseError, setFirebaseError] = useState()
+  const [firebaseError, setFirebaseError] = useState<string | null>()
   const [loading, setLoading] = useState(false)
   const [marketingStrategy, setMarketingStrategy] = useState<string | null>(
     null,
@@ -128,6 +129,12 @@ const ProSignup = () => {
     register('marketingStrategy')
   }, [register])
 
+  useEffect(() => {
+    if (firebaseError) {
+      toast.error(firebaseError)
+    }
+  }, [firebaseError])
+
   const signUpViaFirebase = (email: string, password: string) => {
     return createUserWithEmailAndPassword(firebaseAuth, email, password)
   }
@@ -145,6 +152,7 @@ const ProSignup = () => {
           firstName,
           lastName,
           email,
+          name: firstName,
           phoneNumber,
           marketingStrategy,
           firebaseID,

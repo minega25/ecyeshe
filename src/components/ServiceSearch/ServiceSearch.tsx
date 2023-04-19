@@ -47,7 +47,7 @@ export default function ServiceSearchBox({
 function ReadyServiceSearchBox({
   defaultValue,
   onSelectService,
-  allBusinessesAndServices,
+  allBusinessesAndServices = [],
 }: IServiceSearchBoxProps) {
   const [service, setService] = useState<string>(defaultValue || '')
 

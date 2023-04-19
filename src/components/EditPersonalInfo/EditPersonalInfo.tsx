@@ -149,7 +149,7 @@ const EditBusinessInfo = () => {
             setValue('aboutMe', aboutMe)
             setValue('firstName', firstName)
             setValue('phoneNumber', phoneNumber)
-            setSpecialties(speciality.split(',').slice(0))
+            setSpecialties(speciality?.split(',')?.slice(0) || '')
             setProfession(profession)
             setValue('lastName', lastName)
 

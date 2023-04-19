@@ -215,9 +215,10 @@ function PreviewProfile() {
             </Tabs.List>
 
             <Tabs.Panel value="services" pt="xs">
-              {profileData?.services.map((service: ServiceCardProps) => (
-                <Service {...service} key={service?.name} />
-              ))}
+              {(profileData.services &&
+                profileData?.services.map((service: ServiceCardProps) => (
+                  <Service {...service} key={service?.name} />
+                ))) || <p>No services registered</p>}
             </Tabs.Panel>
 
             <Tabs.Panel value="reviews" pt="xs">
@@ -239,7 +240,6 @@ function PreviewProfile() {
             <Tabs.Panel value="about" pt="xs">
               <About>
                 <h3>{profileData?.aboutMe}</h3>
-                <p>Joined in 2022</p>
               </About>
             </Tabs.Panel>
           </Tabs>
