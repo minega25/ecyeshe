@@ -5,16 +5,16 @@ import styled from 'styled-components'
 
 const ServiceContainer = styled.div`
   margin: 0.5rem;
-  max-width: 240px;
-  width: 240px;
+  max-width: 280px;
+  width: 280px;
   cursor: pointer;
 `
 
 const ServiceName = styled.span`
   display: block;
   border: 5px solid var(--color-primary);
-  min-width: 240px;
-  width: 240px;
+  min-width: 280px;
+  width: 280px;
   text-align: center;
   margin: 0 auto;
   margin-top: -0.49rem;
@@ -37,7 +37,7 @@ const ServiceCard = ({ image, name, href }: IService) => {
   return (
     <ServiceContainer>
       <Link href={href}>
-        <StyledImg src={image} alt="" width="240" height="280" />
+        <StyledImg src={image} alt="" width="280" height="280" />
       </Link>
       <Link href={href}>
         <ServiceName>{name}</ServiceName>

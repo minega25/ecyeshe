@@ -1,10 +1,22 @@
 export const services = [
-  { name: 'BRAIDS', href: '/search', image: '/braids.png' },
-  { name: 'HAIRCUT', href: '/search', image: '/natural_hair.png' },
-  { name: "MEN'S HAIRCUT", href: '/search', image: '/mens_haircut.png' },
-  { name: 'LOCS', href: '/search', image: '/locs.png' },
-  { name: 'SILK PRESS', href: '/search', image: '/silk_press.png' },
-  { name: 'WEAVES', href: '/search', image: '/weaves.png' },
-  { name: 'EYELASHES', href: '/search', image: '/eyelashes.png' },
-  { name: 'NAILS', href: '/search', image: '/nails.png' },
+  {
+    name: 'Massage',
+    href: '/search?latitude=-1.9498715&longitude=30.1247395&address=Simba+Supermarket%2C+Kimironko%2C+Kimironko%2C+Kigali%2C+Rwanda&service=massage',
+    image: '/massage.jpg',
+  },
+  {
+    name: 'Salons',
+    href: '/search?latitude=-1.9498715&longitude=30.1247395&address=Simba+Supermarket%2C+Kimironko%2C+Kimironko%2C+Kigali%2C+Rwanda&service=salon',
+    image: '/salon.jpg',
+  },
+  {
+    name: 'Sauna',
+    href: '/search?latitude=-1.9498715&longitude=30.1247395&address=Simba+Supermarket%2C+Kimironko%2C+Kimironko%2C+Kigali%2C+Rwanda&service=sauna',
+    image: '/sauna.jpg',
+  },
+  {
+    name: 'Gym',
+    href: '/search?latitude=-1.9498715&longitude=30.1247395&address=Simba+Supermarket%2C+Kimironko%2C+Kimironko%2C+Kigali%2C+Rwanda&service=gym',
+    image: '/gym.jpg',
+  },
 ]
