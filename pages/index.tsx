@@ -33,6 +33,7 @@ const Heading1 = styled.h1`
   font-weight: 700;
   line-height: 1;
   color: var(--color-text);
+  margin: 1rem 0;
 `
 
 const CTA = styled.div`
@@ -78,6 +79,7 @@ export default function Home({}: IProps) {
     <Layout>
       <Hero>
         <CTA>
+          <Heading1>Welcome to eCyeshe</Heading1>
           <Heading1>Discover & book local beauty professionals</Heading1>
           <SearchForm />
         </CTA>
